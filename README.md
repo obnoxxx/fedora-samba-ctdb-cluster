@@ -25,7 +25,7 @@ In short:
 
 ## Configuration
 
-* Edit the configuration at thet top of the Vagrantfile:
+* Edit the configuration at the top of the Vagrantfile:
  * global network settings (example uses virbr interfaces)
  * the VMS array to adjust the number of nodes and the IP configuration of each node
 
