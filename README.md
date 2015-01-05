@@ -23,8 +23,8 @@ In short:
 
 * Possibly prepare bridge network interfaces on the host. The example data uses libvirt's virbr interfaces.
 * Edit the configuration at thet top of the Vagrantfile:
-** global network settings
-** the VMS array adapt the number of nodes and the IP configuration of each node
+ * global network settings
+ * the VMS array adapt the number of nodes and the IP configuration of each node
 
 ## Running
 
