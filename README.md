@@ -6,7 +6,7 @@ clustered file system, using a shared host folder instead.
 
 This is useful for testing/development of clustered Samba
 and CTDB on a real cluster, but taking the complexity of
-a clustered File system out of the equation.
+a clustered file system out of the equation.
 
 In short:
 
@@ -17,14 +17,17 @@ In short:
 
 ## Prerequisites
 
-* Host with LXC installed.
+* Linux host, attached to the network
+* lxc installed
+* vagrant installed
+* vagrant-lxc plugin installed
+* possibly preparation of bridge interfaces on the host (the example uses libvirt's `virbr` interfaces)
 
 ## Configuration
 
-* Possibly prepare bridge network interfaces on the host. The example data uses libvirt's virbr interfaces.
 * Edit the configuration at thet top of the Vagrantfile:
- * global network settings
- * the VMS array adapt the number of nodes and the IP configuration of each node
+ * global network settings (example uses virbr interfaces)
+ * the VMS array to adjust the number of nodes and the IP configuration of each node
 
 ## Running
 
@@ -35,9 +38,10 @@ into node1, etc.
 ## TODO
 
 - configure password-less ssh between the nodes (for root)
-- do provisioning with [ansible](https://github.com/ansible/ansible)
 - provision ctdb public addresses
 - install and initially configure samba
+- do provisioning with [ansible](https://github.com/ansible/ansible)
+- check whether one can spare dhcp on the default interface
 
 ## Author
 
