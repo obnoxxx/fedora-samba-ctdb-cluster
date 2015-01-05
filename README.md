@@ -17,7 +17,7 @@ In short:
 
 ## Prerequisites
 
-* Linux host, attached to the network
+* Linux host, attached to the network (tested on Fedora 21, should work on other hosts as well)
 * lxc installed
 * vagrant installed
 * vagrant-lxc plugin installed
