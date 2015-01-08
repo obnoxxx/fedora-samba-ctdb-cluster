@@ -37,7 +37,7 @@ VMS = [
 PROVISION_SCRIPT = <<SCRIPT
 set -e 
 
-yum -y install ctdb samba
+yum -y install valgrind strace gdb ctdb samba
 
 # create nodes file:
 echo #{VMS[0][:internal_ip]} >  /etc/ctdb/nodes
