@@ -63,6 +63,10 @@ SCRIPT
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.scope = :box
+  end
+
   #
   # Provisioning common to all machines:
   #
