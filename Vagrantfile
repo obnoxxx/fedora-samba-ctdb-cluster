@@ -1,6 +1,8 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+VAGRANTFILE_API_VERSION = "2"
+
 #
 # Configuration data:
 # Adjust these to your needs.
@@ -59,7 +61,7 @@ SCRIPT
 # The vagrant machine definitions
 #
 
-Vagrant.configure("2") do |config|
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   #
   # Provisioning common to all machines:
