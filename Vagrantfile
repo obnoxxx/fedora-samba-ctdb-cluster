@@ -34,8 +34,10 @@ VMS = [
 # Provisioning scripts
 #
 
-CTDB_INSTALL_SCRIPT = <<SCRIPT
-yum -y install ctdb
+PROVISION_SCRIPT = <<SCRIPT
+set -e 
+
+yum -y install ctdb samba
 
 # create nodes file:
 echo #{VMS[0][:internal_ip]} >  /etc/ctdb/nodes
@@ -48,13 +50,34 @@ mkdir -p /shared/ctdb/
 cat <<EOF > /etc/sysconfig/ctdb
 #CTDB_NODES=/etc/ctdb/nodes
 CTDB_RECOVERY_LOCK=/shared/ctdb/reclock
+CTDB_MANAGES_SAMBA="yes"
+#CTDB_MANAGES_WINBIND="yes"
 EOF
 
-# prepare password-less ssh for root between nodes:
+mv /etc/samba/smb.conf /etc/samba/smb.conf.orig.`date +%Y%m%d-%H%M%S`
+cat <<EOF > /etc/samba/smb.conf
+[global]
+	netbios name = sambacluster
+	workgroup = vagrant
+	security = user
+
+	clustering = yes
+	#include = registry
+
+[share1]
+	path = /shared/share1
+	read only = no
+EOF
+
+mkdir -p /shared/share1
+chmod a+rwx /shared/share1
+
+# prepare password-less ssh for root between nodes (for onnode):
 #(TODO)
 
 systemctl start ctdb.service
 SCRIPT
+
 
 
 #
@@ -70,7 +93,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #
   # Provisioning common to all machines:
   #
-  config.vm.provision :shell, inline: CTDB_INSTALL_SCRIPT
+  config.vm.provision :shell, inline: PROVISION_SCRIPT
 
   VMS.each do |machine|
     config.vm.define machine[:hostname] do |node|
