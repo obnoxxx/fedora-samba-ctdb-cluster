@@ -42,7 +42,8 @@ into node1, etc.
 - install and initially configure samba
 - do provisioning with [ansible](https://github.com/ansible/ansible)
 - check whether one can spare dhcp on the default interface
-- Add Makfile/configure to make the environment easily configurable.
+- Add mechanism to make the entier environment easily configurable.
+  - E.g something like in oh-my-vagrant which uses a yaml setting file.
 
 ## Author
 
