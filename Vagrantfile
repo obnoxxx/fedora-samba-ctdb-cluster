@@ -3,9 +3,12 @@
 
 VAGRANTFILE_API_VERSION = "2"
 
+require 'yaml'
+
 #
-# Configuration data:
-# Adjust these to your needs.
+# Defaults for Configuration data.
+# Will be overridden from the settings file
+# and (possibly later) from commandline parameters.
 #
 
 internal_net_type = 'veth'
@@ -45,6 +48,54 @@ vms = [
   },
 ]
 
+#
+# Load the config, if it exists,
+# possibly override with commandline args,
+# (currently none supported yet)
+# and then store the config.
+#
+
+projectdir = File.expand_path File.dirname(__FILE__)
+f = File.join(projectdir, 'vagrant.yaml')
+if File.exists?(f)
+  settings = YAML::load_file f
+  puts "Loaded settings from #{f}."
+
+  if settings[:internal_net_type].is_a?(String)
+    internal_net_type = settings[:internal_net_type]
+  end
+  if settings[:internal_net_link].is_a?(String)
+    internal_net_link = settings[:internal_net_link]
+  end
+  if settings[:public_net_type].is_a?(String)
+    public_net_type = settings[:public_net_net_type]
+  end
+  if settings[:public_net_link].is_a?(String)
+    public_net_link = settings[:public_net_net_link]
+  end
+  if settings[:vms].is_a?(Array)
+    vms = settings[:vms]
+  end
+  if settings[:public_ips].is_a?(Array)
+    public_ips = settings[:public_ips]
+  end
+end
+
+# TODO(?): ARGV-processing
+
+settings = {
+  :internal_net_type => internal_net_type,
+  :internal_net_link => internal_net_link,
+  :public_net_type   => public_net_type,
+  :public_net_link   => public_net_link,
+  :public_ips        => public_ips,
+  :vms               => vms,
+}
+
+File.open(f, 'w') do |file|
+	file.write settings.to_yaml
+	puts "Wrote settings to #{f}."
+end
 
 #
 # Provisioning scripts
