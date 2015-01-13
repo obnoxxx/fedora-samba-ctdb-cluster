@@ -26,18 +26,22 @@ vms = [
     :container_name => 'fedora-cluster-node1',
     :internal_ip => '172.16.1.201',
     :public_ip => '10.111.222.201',
+    :box => 'obnox/fedora21-64-lxc',
+
   },
   {
     :hostname => 'node2',
     :container_name => 'fedora-cluster-node2',
     :internal_ip => '172.16.1.202',
     :public_ip => '10.111.222.202',
+    :box => 'obnox/fedora21-64-lxc',
   },
   {
     :hostname => 'node3',
     :container_name => 'fedora-cluster-node3',
     :internal_ip => '172.16.1.203',
     :public_ip => '10.111.222.203',
+    :box => 'obnox/fedora21-64-lxc',
   },
 ]
 
@@ -140,7 +144,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   vms.each do |machine|
     config.vm.define machine[:hostname] do |node|
-      node.vm.box = "obnox/fedora21-64-lxc"
+      node.vm.box = machine[:box]
       node.vm.hostname = machine[:hostname]
       node.vm.provider :lxc do |lxc|
         lxc.container_name = machine[:container_name]
