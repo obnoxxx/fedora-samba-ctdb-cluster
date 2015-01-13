@@ -20,6 +20,8 @@ net_default = {
   :ipv6   => '',
 }
 
+network_opts = [ :type, :link, :flags, :hwaddr, :name, :ipv4, :ipv6 ]
+
 ctdb = {
   :nodes_ips => [
     '172.16.1.201',
@@ -230,17 +232,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         lxc.container_name = machine[:container_name]
 
         machine[:networks].each do |net|
-          lxc.customize "network.type", net[:type]
-          lxc.customize "network.link", net[:link]
-          lxc.customize "network.flags", "up"
-          if not net[:name] == ''
-            lxc.customize "network.name", net[:name]
-          end
-          if not net[:ipv4] == ''
-            lxc.customize "network.ipv4", net[:ipv4]
-          end
-            if not net[:ipv6] == ''
-            lxc.customize "network.ipv6", net[:ipv6]
+          network_opts.each do |key|
+            if not net[key] == ''
+             lxc.customize "network.#{key}", net[key]
+            end
           end
         end
       end
