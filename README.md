@@ -15,6 +15,14 @@ In short:
 * node OS: Fedora 21
 * shared folder instead of clustered filesystem
 
+## Configuration
+
+This Vagrantfile is parametrized: The options for configuring
+the number of nodes and the nodes' network interfaces and addresses
+are stored in the config file 'vagrant.yml' when running any
+vagrant command (except for vagrant help). The whole setup can
+then conveniently be reconfigured modifying that file.
+
 ## Prerequisites
 
 * Linux host, attached to the network (tested on Fedora 21, should work on other hosts as well)
@@ -22,12 +30,6 @@ In short:
 * vagrant installed
 * vagrant-lxc plugin installed
 * possibly preparation of bridge interfaces on the host (the example uses libvirt's `virbr` interfaces)
-
-## Configuration
-
-* Edit the configuration at the top of the Vagrantfile:
- * global network settings (example uses virbr interfaces)
- * the VMS array to adjust the number of nodes and the IP configuration of each node
 
 ## Running
 
