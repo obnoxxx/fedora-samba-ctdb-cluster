@@ -8,19 +8,19 @@ VAGRANTFILE_API_VERSION = "2"
 # Adjust these to your needs.
 #
 
-INTERNAL_NET_LINK = 'virbr1'
-INTERNAL_NET_TYPE = 'veth'
+internal_net_link = 'virbr1'
+internal_net_type = 'veth'
 
-PUBLIC_NET_TYPE = "veth"
-PUBLIC_NET_LINK = "virbr2"
+public_net_type = "veth"
+public_net_link = "virbr2"
 
-PUBLIC_IPS = [
+public_ips = [
   "10.111.222.211/24 eth2",
   "10.111.222.212/24 eth2",
   "10.111.222.213/24 eth2",
 ]
 
-VMS = [
+vms = [
   {
     :hostname => 'node1',
     :container_name => 'fedora-cluster-node1',
@@ -67,7 +67,7 @@ NODES_FILE="/etc/ctdb/nodes"
 test -f ${NODES_FILE} || touch ${NODES_FILE}
 mv -f ${NODES_FILE} ${NODES_FILE}${BACKUP_SUFFIX}
 cat <<EOF > ${NODES_FILE}
-#{VMS.map { |vm| vm[:internal_ip] }.join("\n")}
+#{vms.map { |vm| vm[:internal_ip] }.join("\n")}
 EOF
 
 # create public_addresses file:
@@ -76,7 +76,7 @@ PUBLIC_ADDRESSES_FILE=/etc/ctdb/public_addresses
 test -f ${PUBLIC_ADDRESSES_FILE} || touch ${PUBLIC_ADDRESSES_FILE}
 mv -f ${PUBLIC_ADDRESSES_FILE} ${PUBLIC_ADDRESSES_FILE}${BACKUP_SUFFIX}
 cat <<EOF > ${PUBLIC_ADDRESSES_FILE}
-#{PUBLIC_IPS.join("\n")}
+#{public_ips.join("\n")}
 EOF
 
 # prepare ctdb config:
@@ -138,20 +138,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #
   config.vm.provision :shell, inline: PROVISION_SCRIPT
 
-  VMS.each do |machine|
+  vms.each do |machine|
     config.vm.define machine[:hostname] do |node|
       node.vm.box = "obnox/fedora21-64-lxc"
       node.vm.hostname = machine[:hostname]
       node.vm.provider :lxc do |lxc|
         lxc.container_name = machine[:container_name]
         # internal network
-        lxc.customize "network.type", INTERNAL_NET_TYPE
-        lxc.customize "network.link", INTERNAL_NET_LINK
+        lxc.customize "network.type", internal_net_type
+        lxc.customize "network.link", internal_net_link
         lxc.customize "network.flags", "up"
         lxc.customize "network.ipv4", machine[:internal_ip]
         # public network
-        lxc.customize "network.type", PUBLIC_NET_TYPE
-        lxc.customize "network.link", PUBLIC_NET_LINK
+        lxc.customize "network.type", public_net_type
+        lxc.customize "network.link", public_net_link
         lxc.customize "network.flags", "up"
         #lxc.customize "network.ipv4", machine[:public_ip]
       end
