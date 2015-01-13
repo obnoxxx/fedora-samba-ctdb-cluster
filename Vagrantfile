@@ -12,10 +12,12 @@ require 'yaml'
 #
 
 net_default = {
-  :type => 'veth',
-  :name => '',
-  :ipv4 => '',
-  :ipv6 => '',
+  :type   => 'veth',
+  :flags  => 'up',
+  :hwaddr => '',
+  :name   => '',
+  :ipv4   => '',
+  :ipv6   => '',
 }
 
 ctdb = {
