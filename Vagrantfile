@@ -38,8 +38,8 @@ ctdb = {
 vms = [
   {
     :hostname => 'node1',
-    :container_name => 'fedora-cluster-node1',
     :box => 'obnox/fedora21-64-lxc',
+    :container_name => 'fedora-cluster-node1',
     :networks => [
       {
         :link => 'virbr1',
@@ -53,8 +53,8 @@ vms = [
   },
   {
     :hostname => 'node2',
-    :container_name => 'fedora-cluster-node2',
     :box => 'obnox/fedora21-64-lxc',
+    :container_name => 'fedora-cluster-node2',
     :networks => [
       {
         :link => 'virbr1',
@@ -68,8 +68,8 @@ vms = [
   },
   {
     :hostname => 'node3',
-    :container_name => 'fedora-cluster-node3',
     :box => 'obnox/fedora21-64-lxc',
+    :container_name => 'fedora-cluster-node3',
     :networks => [
       {
         :link => 'virbr1',
