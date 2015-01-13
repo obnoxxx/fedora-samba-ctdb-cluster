@@ -8,8 +8,8 @@ VAGRANTFILE_API_VERSION = "2"
 # Adjust these to your needs.
 #
 
-internal_net_link = 'virbr1'
 internal_net_type = 'veth'
+internal_net_link = 'virbr1'
 
 public_net_type = "veth"
 public_net_link = "virbr2"
