@@ -108,7 +108,7 @@ settings = {
 }
 
 File.open(f, 'w') do |file|
-	file.write settings.to_yaml
+  file.write settings.to_yaml
 end
 puts "Wrote settings to #{f}."
 
