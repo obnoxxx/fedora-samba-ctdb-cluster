@@ -1,5 +1,5 @@
 # -*- mode: ruby -*-
-# vi: set ft=ruby :
+# vi: ft=ruby:et:ts=2:sts=2
 
 VAGRANTFILE_API_VERSION = "2"
 
