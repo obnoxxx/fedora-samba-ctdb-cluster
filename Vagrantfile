@@ -101,8 +101,8 @@ if File.exists?(f)
   if settings[:ctdb].is_a?(Hash)
     ctdb = settings[:ctdb]
   end
+  puts "Loaded settings from #{f}."
 end
-puts "Loaded settings from #{f}."
 
 # TODO(?): ARGV-processing
 
