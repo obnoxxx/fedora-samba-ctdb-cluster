@@ -138,7 +138,9 @@ set -e
 BACKUP_SUFFIX=".orig.$(date +%Y%m%d-%H%M%S)"
 
 # install software
-#
+
+yum -y makecache fast
+
 # dependencies needed due to missing Requires in ctdb:
 yum -y install ethtool net-tools
 yum -y install ctdb samba
