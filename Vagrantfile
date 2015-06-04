@@ -1,6 +1,8 @@
 # -*- mode: ruby -*-
 # vi: ft=ruby:et:ts=2:sts=2:sw=2
 
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'lxc'
+
 VAGRANTFILE_API_VERSION = "2"
 
 require 'yaml'
