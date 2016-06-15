@@ -40,7 +40,7 @@ ctdb = {
 vms = [
   {
     :hostname => 'node1',
-    :box => 'obnox/fedora21-64-lxc',
+    :box => 'obnox/fedora23-64-lxc',
     :container_name => 'fedora-cluster-node1',
     :networks => [
       {
@@ -141,14 +141,14 @@ BACKUP_SUFFIX=".orig.$(date +%Y%m%d-%H%M%S)"
 
 # install software
 
-yum -y makecache fast
-yum -y update
+dnf -y makecache fast
+dnf -y update
 
 # dependencies needed due to missing Requires in ctdb:
-yum -y install ethtool net-tools
-yum -y install ctdb samba samba-client
+dnf -y install ethtool net-tools
+dnf -y install ctdb samba samba-client
 # debug tools
-yum -y install valgrind strace gdb
+dnf -y install valgrind strace gdb
 
 systemctl stop ctdb.service
 
